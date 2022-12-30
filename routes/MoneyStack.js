@@ -10,7 +10,7 @@ export default function MoneyStack() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Money" component={Money} />
-            <Stack.Screen name="Detal" component={Detail} />
+            <Stack.Screen name="Detail" component={Detail} />
         </Stack.Navigator>
     )
 }

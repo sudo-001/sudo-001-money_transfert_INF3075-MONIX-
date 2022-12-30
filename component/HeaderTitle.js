@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TouchableNativeFeedback } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontAwesome } from '@expo/vector-icons';
+import { ConnectedContext } from "../shared/context";
 
-export default function HeaderComponent(props) {
+
+export default function HeaderComponent() {
     const actualRoute = useRoute();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const navigation = useNavigation();
+    const { connected, setConnected } = useContext(ConnectedContext);
 
     return (
         <View style={styles.container}>
@@ -37,7 +41,7 @@ export default function HeaderComponent(props) {
                         </View>
 
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate("Account")}>
                             <View style={{ flexDirection: "row", alignItems: "center", marginTop: 30, marginLeft: 10 }}>
                                 <FontAwesome name="user" size={30} color="#0B162C" />
                                 <Text style={{ marginLeft: 5, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>My Account</Text>
@@ -46,17 +50,24 @@ export default function HeaderComponent(props) {
 
                         <View style={{ marginTop: 40, paddingLeft: 10, paddingVertical: 10, borderTopWidth: 2, }}>
 
-                            <TouchableOpacity >
-                                <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 30 }}>
-                                    <Ionicons name="ios-settings-sharp" size={30} color="#0B162C" />
-                                    <Text style={{ marginLeft: 5, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>Setting</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate("Setting")}>
+                                <View style={{ flexDirection: "row", alignItems: "center", marginTop: 30, marginBottom: 20, paddingLeft: 1 }}>
+                                    <Ionicons name="ios-settings-sharp" size={26} color="#0B162C" />
+                                    <Text style={{ marginLeft: 10, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>Setting</Text>
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity>
-                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                            <TouchableOpacity onPress={() => navigation.navigate("About")}>
+                                <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20, paddingLeft: 0 }}>
                                     <Ionicons name="information-circle-sharp" size={30} color="#0B162C" />
-                                    <Text style={{ marginLeft: 5, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>About Us</Text>
+                                    <Text style={{ marginLeft: 10, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>About Us</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => { setConnected(!connected) }}>
+                                <View style={{ flexDirection: "row", alignItems: "center", paddingLeft: 5 }}>
+                                    <FontAwesome name="power-off" size={24} color="black" />
+                                    <Text style={{ marginLeft: 10, fontWeight: "500", fontSize: 17, letterSpacing: 1 }}>Se Déconnecter</Text>
                                 </View>
                             </TouchableOpacity>
 
